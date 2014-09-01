@@ -178,4 +178,7 @@ def start_server(host='localhost', port=8080, IPv6=False, timeout=60,
         thread.start_new_thread(handler, soc.accept()+(timeout,))
 
 if __name__ == '__main__':
-    start_server(host=os.environ['OPENSHIFT_DIY_IP'], port=15001)
+    try:
+                 start_server(host=os.environ['OPENSHIFT_DIY_IP'], port=15001)
+    except:
+                 start_server(host=os.environ['OPENSHIFT_PYTHON_IP'], port=15001)
