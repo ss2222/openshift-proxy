@@ -178,7 +178,15 @@ def start_server(host='localhost', port=8080, IPv6=False, timeout=60,
         thread.start_new_thread(handler, soc.accept()+(timeout,))
 
 if __name__ == '__main__':
+    from optparse import OptionParser
+    parser = OptionParser(description=__doc__)
+    parser.add_option('-i', '--ip', type='string', dest='ip', help='please insert your ip to make a server'
+                                                                   ' based on it like:121.121.21.21 \nIf you'
+                                                                   ' dont know print os enviroment for it like :'
+                                                                   ' OPENSHIFT_DIY_IP',default='OPENSHIFT_DIY_IP')
+    parser.add_option('-p', '--port', dest='port', help=' port setting for server like:15001', default=15001)
+    options, args = parser.parse_args()
     try:
-                 start_server(host=os.environ['OPENSHIFT_DIY_IP'], port=15001)
+                 start_server(host=os.environ[options.ip], port=options.port)
     except:
-                 start_server(host=os.environ['OPENSHIFT_PYTHON_IP'], port=15001)
+                 start_server(host=os.environ['OPENSHIFT_PYTHON_IP'], port=options.port)
